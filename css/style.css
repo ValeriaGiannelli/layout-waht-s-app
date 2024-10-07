@@ -1,0 +1,290 @@
+/* css generale */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Lato", sans-serif;
+}
+
+#app{
+    height: 100vh;
+    position: relative;
+    background-color: #d8dbd5;
+}
+
+.green-row{
+    background-color: #009688;
+    height: 150px;
+    width: 100%;
+}
+
+/* stile container */
+#container{
+    width: 90%;
+    margin: 0 auto;
+    height: calc(100vh - 50px);
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+
+/******* SEZIONE DI SINISTRA ******/
+
+/* contenuti dei contatti */
+#left-box{
+    width: calc(100% / 3);
+    min-width: 320px;
+}
+
+/* barra del profilo */
+.bar-up{
+    height: 70px;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 1px solid gray;
+}
+
+/* sezione immagine e nome utente */
+.user-profile, .contact-profile{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.user-profile .immagine-profilo, .contact-profile .immagine-profilo{
+    width: 50px;
+    height: 50px;
+}
+
+/* sezione icone */
+.icons a{
+    padding-right: 20px;
+    color: gray;
+    font-size: 20px;
+}
+
+/* sezione notifiche del desktop */
+.desktop-notifications{
+    height: 70px;
+    background-color: #8edafc;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.fa-bell-slash{
+    font-size: 20px;
+    background-color: white;
+    color: #8edafc;
+    border-radius: 50%;
+    padding: 12.5px 10px;
+    margin-right: 5px;
+}
+
+.desktop-notifications h5 a{
+    color: gray;
+}
+
+/* sezione barra di ricerca */
+.search-bar{
+    height: 40px;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-right: 1px solid gray;
+}
+
+.search-bar .fa-magnifying-glass{
+    background-color: white;
+    padding: 5px 20px;
+    font-size: 15px;
+    color: gray;
+    border: 1px solid gray;
+    border-right: none;
+}
+.search-bar input{
+    width: 100%;
+    padding: 3.5px 5px;
+}
+
+
+/* sezione contatti */
+#contacts{
+    height: calc(100vh - 230px);
+    overflow-y: auto;
+    border-right: 1px solid gray;
+    background-color: white;
+}
+
+/* singolo contatto */
+.single-contact{
+    padding-left: 10px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}
+
+.single-contact:hover{
+    cursor: pointer;
+    background-color: #ecececb2;
+}
+
+/* contenitore del contatto senza l'ora */
+.img-info{
+    display: flex;
+    align-items: center;
+}
+
+/* grandezza contenitore immagine profilo */
+.single-contact .immagine-profilo{
+    width: 60px;
+    height: 60px;
+}
+
+/* grandezza img profilo */
+.immagine-profilo img{
+    width: 100%;
+    height: 100%;
+}
+
+/* contenitore del nome e dell'ultimo messaggio */
+.info-contact{
+    height: 60px;
+    padding-left: 15px;
+}
+
+/* scritta dell'ultimo messaggio */
+.info-contact span{
+    color: gray;
+}
+
+/* ora del messaggio */
+.time-msg{
+    height: 60px;
+    padding-right: 10px;
+    color: gray;
+    width: 155px;
+    text-align: end;
+}
+
+/* selezione del singolo contatto */
+.active{
+    background-color:rgb(204, 204, 204);
+}
+
+/* contatto non cercato */
+.not-searched{
+    display: none;
+}
+
+/***********************************/
+
+
+/******* SEZIONE DI DESTRA ******/
+.right-box{
+    width: calc(100% / 3 *2);
+}
+
+/* utente visualizzato */
+.selected-contact{ /*molto probabile identico al user-profile*/
+    height: 70px;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected-contact .immagine-profilo img{
+    width: 100%;
+    height: 100%;
+}
+
+/* nome e ultimo messaggio inviato */
+.selected-contact .contact-profile .info-contact{
+    height: 100%;
+} 
+
+/* contenuto della chat */
+.chat-container{
+    height: calc(100vh - 190px);
+    overflow-y: auto;
+    background-image: url(../img/wp4410721-660620800.jpg);
+    padding: 50px 90px;
+}
+
+/* caratteristiche base dei messaggi */
+.message{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    width: 250px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+/* caratteristiche messaggi */
+.message .text{
+    display: block;
+    width: 200px;
+}
+.message .time{
+    font-size: 9px;
+    color: gray;
+    align-self: end;
+    display: block;
+    width: 30px;
+}
+
+/* caratteristica messaggio utente */
+.user-message{
+    background-color:#d5f9ba ;
+    margin-left: calc(100% - 250px);
+}
+
+.contact-message{
+    background-color: white;
+}
+
+
+
+/* barra di inserimento del messaggio */
+.text-area{
+    height: 70px;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    align-items: center;
+}
+
+.text-area a {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    color: gray;
+    font-size: 20px;
+}
+
+.text-area input{
+    width: 80%;
+    height: 55px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+
+}
+
+/***********************************/

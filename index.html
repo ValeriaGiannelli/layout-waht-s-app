@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolzapp Vue BONUS</title>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- link a Vue 3.x -->
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- luxon -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js" integrity="sha256-7NQm0bhvDJKosL8d+6ZgSi2LxZCIcA/TD087GLEBO9M=" crossorigin="anonymous"></script>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- link Axios -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <!-- mio css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- id per unirlo a Vue -->
+    <div id="app">
+        <!-- riga di sfondo -->
+        <div class="green-row"></div>
+
+        <!-- container della web app -->
+        <div id="container">
+
+            <!-- parte sinistra dei contatti e profilo -->
+            <div id="left-box">
+
+                <!-- informazioni utente -->
+                <div class="bar-up">
+
+                    <!-- informazioni profilo gestire con VUE-->
+                    <div class="user-profile">
+                        <!-- immagine del profilo -->
+                        <div class="immagine-profilo">
+                            <img :src="userProfile.avatar" :alt="userProfile.name">
+                        </div>
+                        
+                        <!-- nome dell'utente -->
+                        <span>{{userProfile.name}}</span>
+                    </div>
+
+                    <!-- icone laterali -->
+                    <div class="icons">
+
+                        <a href="#">
+                            <i class="fa-solid fa-circle-notch"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-message"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </a>    
+                        
+                    </div>
+                </div>
+
+                <!-- notifiche -->
+                <div class="desktop-notifications">
+
+                    <!-- simbolo notifiche -->
+                    <i class="fa-solid fa-bell-slash"></i>
+
+                    <!-- informazioni -->
+                    <div>
+                        <span>Ricevi notifiche di nuovi messaggi</span>
+                        <h5><a href="#">Attiva notifiche desktop</a></h5>
+                    </div>
+                    
+
+                
+                </div>
+
+                <!-- barra di ricerca -->
+                <div class="search-bar">
+                    <!-- icona del cerca -->
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <!-- barra di ricerca -->
+                    <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="textSearched" @keyup="searchContact()">
+                </div>
+
+                <!-- sezione contatti -->
+                <section id="contacts">
+                        <!-- singolo contatto da moltiplicare con VUE-->
+                        <div class="single-contact" :class="activeContact === index ? 'active' : ''" v-for="(contact, index) in contacts" :key="index" @click="changeContact(index)" v-show="contact.visible">
+
+                                <div class="img-info">
+                                    <!-- immagine profilo -->
+                                    <div class="immagine-profilo">
+                                        <img :src="contact.avatar" alt="contact.name">
+                                    </div>
+    
+                                    <!-- nome e ultimo messaggio inviato -->
+                                    <div class="info-contact">
+                                        <h3>{{contact.name}}</h3>
+
+                                        <!-- ultimo messaggio inviato -->
+                                        <span>{{showLastMessage(index)}}</span>                      
+                                    </div>
+                                </div>
+    
+                                <!-- ora del messaggio -->
+                                <div class="time-msg">
+                                    {{showLastAccess(index)}}
+                                </div>                            
+                        </div>          
+                </section>
+
+            </div>
+
+            <!-- parte destra dei messaggi -->
+            <div class="right-box">
+
+                <!-- nome del contatto selezionato -->
+                <div class="selected-contact">
+
+                    <!-- informazioni contatto da gestire con VUE-->
+                    <div class="contact-profile">
+                        <div class="immagine-profilo">
+                            <img :src="contacts[activeContact].avatar" :alt="contacts[activeContact].name">
+                        </div>
+                        
+                        <!-- nome e ultimo accesso da gestire con VUE -->
+                        <div class="info-contact">
+                            <h3>{{contacts[activeContact].name}}</h3>
+                            <span>Ultimo accesso: {{showLastAccess(activeContact)}}</span>                      
+                        </div>
+                    </div>
+
+                    <!-- icone laterali -->
+                    <div class="icons">
+
+                        <a href="#">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-paperclip"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </a>    
+                        
+                    </div>
+
+                </div>
+
+                
+                <!-- contenuto della chat -->
+                <div class="chat-container">
+
+                    <!-- messaggio utente -->
+                    <div class="message" :class="text.status === 'sent' ? 'user-message' : 'contact-message'" v-for="(text, index) in contacts[activeContact].messages" :key="index">
+                        <span class="text">{{text.message}}</span>
+                        <span class="time">{{changeDate(text.date)}}</span>
+                    </div>
+                
+                </div>
+                  
+                <!-- scrittura messaggio -->
+                <div class="text-area">
+
+                    <a href="#">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </a>
+                    
+                    <!-- input dove la persona scriverà il messaggio -->
+                    <input type="text" placeholder="Scrivi un messaggio" v-model="userText" @keyup.enter="sendMessage()">
+
+                    <a href="#">
+                        <i class="fa-solid fa-microphone"></i>
+                    </a>
+                </div>
+
+            </div>  
+        </div>
+
+    </div>
+
+
+
+    
+    <!-- codice JavaScript -->
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
